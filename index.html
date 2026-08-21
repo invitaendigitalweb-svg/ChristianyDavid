@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>Nuestra Invitación</title>
+
+<!-- Miniatura para WhatsApp -->
+<meta property="og:title" content="Nuestra Invitación">
+<meta property="og:description" content="Nos encantará compartir este día contigo">
+<meta property="og:image" content="portada.jpg">
+<meta property="og:type" content="website">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="portada.jpg">
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap"
+      rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.cdnfonts.com">
+<link href="https://fonts.cdnfonts.com/css/ss-abigail" rel="stylesheet">
+
+
+<style>
+
+/* =========================
+   GENERAL
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #f7f2eb;
+}
+
+
+/* =========================
+   SOBRE
+========================= */
+
+.fullscreen-wrapper {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.envelope-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    background-color: #E6D2B5;
+
+    background-image:
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,0.08) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            0deg,
+            rgba(255,255,255,0.08) 1px,
+            transparent 1px
+        ),
+        radial-gradient(
+            circle at 50% 50%,
+            rgba(255,255,255,0.15) 0%,
+            rgba(0,0,0,0.04) 100%
+        );
+
+    background-size:
+        4px 4px,
+        4px 4px,
+        100% 100%;
+
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    perspective: 1500px;
+
+    z-index: 1;
+}
+
+
+/* =========================
+   SOLAPAS
+========================= */
+
+.flap {
+    position: absolute;
+    left: 0;
+
+    width: 0;
+    height: 0;
+
+    border-style: solid;
+
+    transition:
+        transform 0.9s cubic-bezier(
+            0.25,
+            0.46,
+            0.45,
+            0.94
+        );
+
+    backface-visibility: hidden;
+}
+
+.envelope-flap-top {
+    top: 0;
+
+    border-width:
+        48vh
+        50vw
+        0
+        50vw;
+
+    border-color:
+        #d8c2a3
+        transparent
+        transparent
+        transparent;
+
+    transform-origin: top;
+
+    z-index: 4;
+}
+
+.envelope-flap-bottom {
+    bottom: 0;
+
+    border-width:
+        0
+        50vw
+        48vh
+        50vw;
+
+    border-color:
+        transparent
+        transparent
+        #c3ad8e
+        transparent;
+
+    transform-origin: bottom;
+
+    z-index: 2;
+}
+
+.envelope-flap-left {
+    top: 0;
+
+    border-width:
+        50vh
+        0
+        50vh
+        50vw;
+
+    border-color:
+        transparent
+        transparent
+        transparent
+        #dec8a9;
+
+    z-index: 1;
+}
+
+.envelope-flap-right {
+    top: 0;
+    right: 0;
+    left: auto;
+
+    border-width:
+        50vh
+        50vw
+        50vh
+        0;
+
+    border-color:
+        transparent
+        #dec8a9
+        transparent
+        transparent;
+
+    z-index: 1;
+}
+
+
+/* =========================
+   SELLO
+========================= */
+
+.center-group {
+    position: absolute;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    z-index: 5;
+
+    transition:
+        opacity 0.3s ease;
+}
+
+.seal {
+    width: 110px;
+    height: 110px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    box-shadow:
+        0 5px 15px rgba(0,0,0,0.3);
+
+    margin-bottom: 20px;
+
+    border:
+        2px solid rgba(255,255,255,0.6);
+}
+
+.view-text {
+    font-size: 14px;
+
+    color: #5a4a3a;
+
+    font-weight: 400;
+
+    text-transform: uppercase;
+
+    letter-spacing: 2.5px;
+
+    opacity: 0.9;
+
+    pointer-events: none;
+
+    background-color:
+        rgba(230,210,181,0.85);
+
+    padding:
+        5px 12px;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 2px 5px rgba(0,0,0,0.1);
+}
+
+
+/* =========================
+   CONTENIDO
+========================= */
+
+.invitation-content {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: flex-start;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transition:
+        opacity 0.8s ease 0.4s;
+
+    z-index: 3;
+
+    background-color: #f7f2eb;
+
+    overflow-y: auto;
+
+    -webkit-overflow-scrolling: touch;
+}
+
+.card-wrapper {
+    width: 100%;
+
+    max-width: 420px;
+
+    margin: 0 auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 0;
+
+    padding: 0;
+}
+
+.portada-img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+
+/* =========================
+   ANIMACIONES SUAVES (SCROLL)
+========================= */
+
+.frase-container,
+.padres-container,
+.titulo-container,
+.fecha-container,
+.countdown-section,
+.ceremonia-section,
+.recepcion-section,
+.galeria-section,
+.slider-section,
+.asistencia-section,
+.form-section {
+
+    width: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    opacity: 0;
+
+    transform:
+        translateY(40px) scale(0.98);
+
+    transition:
+        opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.frase-container.visible,
+.padres-container.visible,
+.titulo-container.visible,
+.fecha-container.visible,
+.countdown-section.visible,
+.ceremonia-section.visible,
+.recepcion-section.visible,
+.galeria-section.visible,
+.slider-section.visible,
+.asistencia-section.visible,
+.form-section.visible {
+
+    opacity: 1;
+
+    transform:
+        translateY(0) scale(1);
+}
+
+
+.frase-img,
+.padres-img,
+.titulo-img,
+.fecha-img,
+.ceremonia-img,
+.recepcion-img,
+.galeria-img,
+.asistencia-img {
+
+    width: 100%;
+
+    height: auto;
+
+    display: block;
+}
+
+
+/* =========================
+   CUENTA REGRESIVA
+========================= */
+
+.countdown-section {
+    background: #ffffff;
+    padding: 45px 15px;
+    font-family: 'SS Abigail', serif;
+}
+
+.countdown-content {
+    text-align: center;
+    width: 100%;
+}
+
+.countdown {
+    display: flex;
+    gap: 25px;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.block {
+    text-align: center;
+    position: relative;
+}
+
+.number {
+    font-size: 42px;
+    color: #BB9885;
+    line-height: 1;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 8px rgba(187, 152, 133, 0.2);
+}
+
+.block::after {
+    content: "";
+    display: block;
+    width: 28px;
+    height: 1px;
+    background: rgba(187, 152, 133, 0.4);
+    margin: 8px auto 6px;
+}
+
+.label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #A37E6B;
+}
+
+@media(max-width: 380px) {
+    .countdown { gap: 15px; }
+    .number { font-size: 34px; }
+    .label { font-size: 9px; }
+}
+
+
+/* =========================
+   SECCIONES CEREMONIA Y RECEPCIÓN (#FCFAF6)
+========================= */
+
+.ceremonia-section,
+.recepcion-section {
+    background-color: #FCFAF6;
+    padding: 0 0 35px 0;
+}
+
+.location-btn-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 20px 20px 0 20px;
+}
+
+.location-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #b38b2d 0%, #7d5e0a 100%);
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 12px 28px;
+    border-radius: 25px;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(125, 94, 10, 0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.location-btn:active {
+    transform: scale(0.96);
+    box-shadow: 0 2px 6px rgba(125, 94, 10, 0.35);
+}
+
+
+/* =========================
+   GALERÍA Y CARRUSEL
+========================= */
+
+.galeria-section {
+    background-color: #ffffff;
+}
+
+.slider-section {
+    background-color: #ffffff;
+    padding: 20px 0;
+}
+
+.slider-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: #000;
+}
+
+.slider-container img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1.2s ease-in-out;
+}
+
+.slider-container img.active {
+    opacity: 1;
+}
+
+
+/* =========================
+   ASISTENCIA
+========================= */
+
+.asistencia-section {
+    background-color: #ffffff;
+}
+
+
+/* =========================
+   FORMULARIO DE ASISTENCIA
+========================= */
+
+.form-section {
+    background-color: #ffffff;
+    padding: 20px 25px 40px 25px;
+}
+
+.rsvp-form {
+    width: 100%;
+    background-color: #FCFAF6;
+    border: 1px solid #E6D2B5;
+    border-radius: 12px;
+    padding: 20px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 12px;
+    color: #5a4a3a;
+    font-weight: 500;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #d8c2a3;
+    border-radius: 8px;
+    background-color: #ffffff;
+    font-size: 14px;
+    color: #333;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #7d5e0a;
+}
+
+.radio-group {
+    display: flex;
+    gap: 20px;
+    margin-top: 5px;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #5a4a3a;
+    cursor: pointer;
+    text-transform: none !important;
+    font-weight: 400 !important;
+}
+
+.conditional-fields {
+    display: none;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px dashed #d8c2a3;
+}
+
+.submit-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #b38b2d 0%, #7d5e0a 100%);
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 12px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(125, 94, 10, 0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-top: 10px;
+}
+
+.submit-btn:active {
+    transform: scale(0.96);
+}
+
+
+/* =========================
+   APERTURA
+========================= */
+
+.open .envelope-flap-top {
+
+    transform:
+        rotateX(-180deg);
+}
+
+.open .envelope-flap-bottom {
+
+    transform:
+        rotateX(180deg);
+}
+
+.open .center-group {
+
+    opacity: 0;
+
+    visibility: hidden;
+}
+
+.open .invitation-content {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    z-index: 10;
+}
+
+
+/* =========================
+   MÚSICA
+========================= */
+
+.music-player {
+
+    position: fixed;
+
+    bottom: 25px;
+
+    right: 25px;
+
+    width: 55px;
+
+    height: 55px;
+
+    background-color:
+        #7B624C;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    box-shadow:
+        0 3px 10px rgba(0,0,0,0.2);
+
+    cursor: pointer;
+
+    z-index: 200;
+
+    transition:
+        transform 0.3s ease;
+
+    -webkit-tap-highlight-color:
+        transparent;
+}
+
+.music-player:active {
+
+    transform:
+        scale(0.95);
+}
+
+.music-player svg {
+
+    width: 24px;
+
+    height: 24px;
+
+    fill:
+        #FFFFFF;
+}
+
+.music-player.playing {
+
+    animation:
+        pulse 2s infinite;
+}
+
+
+@keyframes pulse {
+
+    0% {
+
+        box-shadow:
+            0 0 0 0
+            rgba(123,98,76,.7);
+    }
+
+    70% {
+
+        box-shadow:
+            0 0 0 10px
+            rgba(123,98,76,0);
+    }
+
+    100% {
+
+        box-shadow:
+            0 0 0 0
+            rgba(123,98,76,0);
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="fullscreen-wrapper">
+
+
+    <!-- =========================
+         SOBRE
+    ========================== -->
+
+    <div
+        class="envelope-container"
+        id="envelope"
+        onclick="openEnvelope()"
+    >
+
+        <div class="flap envelope-flap-top"></div>
+
+        <div class="flap envelope-flap-left"></div>
+
+        <div class="flap envelope-flap-right"></div>
+
+        <div class="flap envelope-flap-bottom"></div>
+
+
+        <div class="center-group">
+
+            <img
+                src="sello.png"
+                alt="Sello"
+                class="seal"
+            >
+
+            <div class="view-text">
+                Ver invitación
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             CONTENIDO
+        ========================== -->
+
+        <div
+            class="invitation-content"
+            id="scrollContainer"
+        >
+
+            <div class="card-wrapper">
+
+
+                <!-- PORTADA -->
+
+                <img
+                    src="portada.jpg"
+                    alt="Portada"
+                    class="portada-img"
+                >
+
+
+                <!-- FRASE -->
+
+                <div class="frase-container scroll-anim">
+
+                    <img
+                        src="frase.jpg"
+                        alt="Frase"
+                        class="frase-img"
+                    >
+
+                </div>
+
+
+                <!-- PADRES -->
+
+                <div class="padres-container scroll-anim">
+
+                    <img
+                        src="padres.jpg"
+                        alt="Padres"
+                        class="padres-img"
+                    >
+
+                </div>
+
+
+                <!-- TITULO -->
+
+                <div class="titulo-container scroll-anim">
+
+                    <img
+                        src="titulo.jpg"
+                        alt="Titulo"
+                        class="titulo-img"
+                    >
+
+                </div>
+
+
+                <!-- FECHA -->
+
+                <div class="fecha-container scroll-anim">
+
+                    <img
+                        src="fecha.jpg"
+                        alt="Fecha"
+                        class="fecha-img"
+                    >
+
+                </div>
+
+
+                <!-- CUENTA REGRESIVA -->
+
+                <div class="countdown-section scroll-anim">
+
+                    <div class="countdown-content">
+
+                        <div class="countdown">
+
+                            <div class="block">
+                                <div id="days" class="number">0</div>
+                                <div class="label">DÍAS</div>
+                            </div>
+
+                            <div class="block">
+                                <div id="hours" class="number">00</div>
+                                <div class="label">HORAS</div>
+                            </div>
+
+                            <div class="block">
+                                <div id="minutes" class="number">00</div>
+                                <div class="label">MINUTOS</div>
+                            </div>
+
+                            <div class="block">
+                                <div id="seconds" class="number">00</div>
+                                <div class="label">SEGUNDOS</div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CEREMONIA -->
+
+                <div class="ceremonia-section scroll-anim">
+
+                    <img
+                        src="ceremonia.jpg"
+                        alt="Ceremonia"
+                        class="ceremonia-img"
+                    >
+
+                    <div class="location-btn-container">
+                        <a href="https://www.google.com/maps/place/St+Lawrence+O'Toole+Church/data=!4m2!3m1!1s0x0:0xa498c32dd1056d6b?sa=X&ved=1t:2428&hl=en-US&ictx=111"
+                           target="_blank"
+                           class="location-btn">
+                            Ver Ubicación
+                        </a>
+                    </div>
+
+                </div>
+
+
+                <!-- RECEPCIÓN -->
+
+                <div class="recepcion-section scroll-anim">
+
+                    <img
+                        src="recepcion.jpg"
+                        alt="Recepción"
+                        class="recepcion-img"
+                    >
+
+                    <div class="location-btn-container">
+                        <a href="https://www.google.com/maps/place/57+Miry+Brook+Rd,+Danbury,+CT+06810,+EE.+UU./data=!4m2!3m1!1s0x89dd5540a135f925:0xc4ee136d3e11b12f?sa=X&ved=1t:242&ictx=111"
+                           target="_blank"
+                           class="location-btn">
+                            Ver Ubicación
+                        </a>
+                    </div>
+
+                </div>
+
+
+                <!-- GALERÍA (FOTO TÍTULO) -->
+
+                <div class="galeria-section scroll-anim">
+                    <img
+                        src="galeria.jpg"
+                        alt="Galería"
+                        class="galeria-img"
+                    >
+                </div>
+
+
+                <!-- CARRUSEL DE FOTOS -->
+
+                <div class="slider-section scroll-anim">
+                    <div class="slider-container">
+                        <img src="https://i.imgur.com/chOuPJa.jpeg" class="active">
+                        <img src="https://i.imgur.com/dnyYppM.jpeg">
+                        <img src="https://i.imgur.com/gJU4zaf.jpeg">
+                        <img src="https://i.imgur.com/DTrxBcK.jpeg">
+                        <img src="https://i.imgur.com/5uKzIWb.jpeg">
+                        <img src="https://i.imgur.com/LoV0IHE.jpeg">
+                        <img src="https://i.imgur.com/e917UOW.jpeg">
+                    </div>
+                </div>
+
+
+                <!-- ASISTENCIA -->
+
+                <div class="asistencia-section scroll-anim">
+                    <img
+                        src="asistencia.jpg"
+                        alt="Asistencia"
+                        class="asistencia-img"
+                    >
+                </div>
+
+
+                <!-- FORMULARIO DE CONFIRMACIÓN -->
+
+                <div class="form-section scroll-anim">
+                    <form class="rsvp-form" onsubmit="enviarAsistencia(event)">
+                        
+                        <div class="form-group">
+                            <label for="nombre">Nombre y Apellido</label>
+                            <input type="text" id="nombre" class="form-control" required placeholder="Escribe tu nombre completo">
+                        </div>
+
+                        <div class="form-group">
+                            <label>¿Podrás asistir?</label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="asistencia" value="si" required onclick="toggleAsistencia(true)"> Sí, ahí estaré
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="asistencia" value="no" required onclick="toggleAsistencia(false)"> No podré asistir
+                                </label>
+                            </div>
+                        </div>
+
+                        <div id="conditionalFields" class="conditional-fields">
+                            <div class="form-group">
+                                <label for="adultos">Cantidad de Adultos</label>
+                                <select id="adultos" class="form-control">
+                                    <option value="1">1 Adulto</option>
+                                    <option value="2">2 Adultos</option>
+                                    <option value="3">3 Adultos</option>
+                                    <option value="4">4 Adultos</option>
+                                    <option value="5">5 Adultos</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ninos">Cantidad de Niños</label>
+                                <select id="ninos" class="form-control">
+                                    <option value="0">0 Niños</option>
+                                    <option value="1">1 Niño</option>
+                                    <option value="2">2 Niños</option>
+                                    <option value="3">3 Niños</option>
+                                    <option value="4">4 Niños</option>
+                                    <option value="5">5 Niños</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn">Confirmar Asistencia</button>
+                    </form>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         MÚSICA
+    ========================== -->
+
+    <div
+        class="music-player"
+        id="musicButton"
+        onclick="toggleMusic(event)"
+    >
+
+        <svg
+            id="musicIcon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+        >
+
+            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+
+        </svg>
+
+    </div>
+
+
+</div>
+
+
+<!-- =========================
+     AUDIO
+========================= -->
+
+<audio
+    id="backgroundAudio"
+    loop
+>
+
+    <source
+        src="cancion.mp3"
+        type="audio/mpeg"
+    >
+
+</audio>
+
+
+<script>
+
+/* =========================
+   APERTURA
+========================= */
+
+let isOpen = false;
+
+const audio =
+    document.getElementById('backgroundAudio');
+
+const musicButton =
+    document.getElementById('musicButton');
+
+const envelope =
+    document.getElementById('envelope');
+
+audio.preload = "auto";
+
+
+function openEnvelope() {
+
+    if (!isOpen) {
+
+        isOpen = true;
+
+        envelope.classList.add('open');
+
+        // Establecer el inicio de la canción en el segundo 29
+        audio.currentTime = 29;
+
+        const playPromise =
+            audio.play();
+
+
+        if (playPromise !== undefined) {
+
+            playPromise.then(() => {
+
+                musicButton.classList.add('playing');
+
+            }).catch(error => {
+
+                console.log(
+                    "Audio necesita interacción:",
+                    error
+                );
+
+            });
+
+        }
+
+    }
+
+}
+
+
+/* =========================
+   MÚSICA
+========================= */
+
+function toggleMusic(event) {
+
+    event.stopPropagation();
+
+
+    if (audio.paused) {
+
+        audio.play();
+
+        musicButton.classList.add('playing');
+
+    } else {
+
+        audio.pause();
+
+        musicButton.classList.remove('playing');
+
+    }
+
+}
+
+
+/* =========================
+   CUENTA REGRESIVA SCRIPT
+========================= */
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    // 24 de Octubre de 2026 - 5:00 PM (17:00 hs)
+    const DATE_TARGET = new Date(2026, 9, 24, 17, 0, 0);
+
+    const days = document.getElementById('days');
+    const hours = document.getElementById('hours');
+    const minutes = document.getElementById('minutes');
+    const seconds = document.getElementById('seconds');
+
+    const MS = 1000;
+    const MIN = MS * 60;
+    const H = MIN * 60;
+    const D = H * 24;
+
+    function format(n){
+        return n < 10 ? '0' + n : n;
+    }
+
+    function updateCountdown(){
+        const now = new Date();
+        let dur = DATE_TARGET - now;
+
+        if(dur < 0) dur = 0;
+
+        days.textContent = Math.floor(dur / D);
+        hours.textContent = format(Math.floor((dur % D) / H));
+        minutes.textContent = format(Math.floor((dur % H) / MIN));
+        seconds.textContent = format(Math.floor((dur % MIN) / MS));
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+});
+
+
+/* =========================
+   CARRUSEL DE FOTOS SCRIPT
+========================= */
+
+const images = document.querySelectorAll('.slider-container img');
+let current = 0;
+
+setInterval(() => {
+    images[current].classList.remove('active');
+    current = (current + 1) % images.length;
+    images[current].classList.add('active');
+}, 3000);
+
+
+/* =========================
+   CONTROL DE FORMULARIO RSVP
+========================= */
+
+function toggleAsistencia(asistira) {
+    const conditionalFields = document.getElementById('conditionalFields');
+    if (asistira) {
+        conditionalFields.style.display = 'block';
+    } else {
+        conditionalFields.style.display = 'none';
+    }
+}
+
+function enviarAsistencia(event) {
+    event.preventDefault();
+    alert("¡Gracias por confirmar tu asistencia!");
+}
+
+
+/* =========================
+   ANIMACIONES SCROLL
+========================= */
+
+const observerOptions = {
+
+    root:
+        document.getElementById(
+            'scrollContainer'
+        ),
+
+    rootMargin:
+        '0px 0px -50px 0px',
+
+    threshold:
+        0.15
+
+};
+
+
+const observer =
+    new IntersectionObserver(
+        (entries, observer) => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    entry.target.classList.add(
+                        'visible'
+                    );
+
+                    observer.unobserve(
+                        entry.target
+                    );
+
+                }
+
+            });
+
+        },
+        observerOptions
+    );
+
+
+document
+    .querySelectorAll(
+        '.scroll-anim'
+    )
+    .forEach(el => {
+
+        observer.observe(el);
+
+    });
+
+</script>
+
+
+</body>
+</html>
